@@ -1,6 +1,6 @@
 
 // #include <QTRSensors.h>
-#include <SparkFun_TB6612.h>
+// #include <SparkFun_TB6612.h>
 // const uint8_t SensorCount = 8;  // number of sensors used
 #include <Wire.h>
 #include <NewPing.h>  // Library for ultrasonic sensor
@@ -12,17 +12,33 @@
 NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 
 ////motor ซ้าย
-#define pwm1 4
-#define pwm2 5
+#define AIN1 4
+#define AIN2 2
+#define BIN1 8
+#define BIN2 10
+#define STBY1 6
+const int pwm1 = 3;
+const int pwm2 = 2;
+const int pwm3 = 5;
+const int pwm4 = 4;
 //// motor ขวา
-#define pwm3 7
-#define pwm4 6
+#define AIN3 5
+#define AIN4 3
+#define BIN3 9
+#define BIN4 11
+#define STBY2 7
+const int pwm5 = 8;
+const int pwm6 = 7;
+const int pwm7 = 11;
+const int pwm8 = 12;
+
 unsigned int uS1 = 0;
 unsigned int cm1 = 0;
 unsigned int uS2 = 0;
 unsigned int cm2 = 0;
 unsigned int uS3 = 0;
 unsigned int cm3 = 0;
+
 
 void setup() {
   Wire.begin();  // Initialize I2C communication
@@ -31,6 +47,27 @@ void setup() {
   pinMode(pwm2, OUTPUT);
   pinMode(pwm3, OUTPUT);
   pinMode(pwm4, OUTPUT);
+
+  pinMode(AIN1, OUTPUT);
+  pinMode(AIN2, OUTPUT);
+  pinMode(BIN1, OUTPUT);
+  pinMode(BIN2, OUTPUT);
+  pinMode(STBY1, OUTPUT);
+
+  pinMode(AIN3, OUTPUT);
+  pinMode(AIN4, OUTPUT);
+  pinMode(BIN3, OUTPUT);
+  pinMode(BIN4, OUTPUT);
+  pinMode(STBY2, OUTPUT);
+
+  pinMode(pwm1, OUTPUT);
+  pinMode(pwm2, OUTPUT);
+  pinMode(pwm3, OUTPUT);
+  pinMode(pwm4, OUTPUT);
+  pinMode(pwm5, OUTPUT);
+  pinMode(pwm6, OUTPUT);
+  pinMode(pwm7, OUTPUT);
+  pinMode(pwm8, OUTPUT);
 }
 
 void loop() {
@@ -56,29 +93,83 @@ void loop() {
 void forward(int distance) {
   while (1) {
     long duration, cm;
-    analogWrite(pwm1, 220);
+    analogWrite(pwm1, 100);
     analogWrite(pwm2, 0);
-
-    analogWrite(pwm3, 255);
+    analogWrite(pwm3, 100);
     analogWrite(pwm4, 0);
+
+    analogWrite(pwm5, 100);
+    analogWrite(pwm6, 0);
+    analogWrite(pwm7, 100);
+    analogWrite(pwm8, 0);
+    //////////////////////
     if (cm2 >= 5) {
-      analogWrite(pwm1, 220);
+      analogWrite(pwm1, 0);
       analogWrite(pwm2, 0);
-
-      analogWrite(pwm3, 255);
+      analogWrite(pwm3, 0);
       analogWrite(pwm4, 0);
+
+      analogWrite(pwm5, 0);
+      analogWrite(pwm6, 0);
+      analogWrite(pwm7, 0);
+      analogWrite(pwm8, 0);
+      //////////////////////
     } else if (cm1 >= 5) {
-      analogWrite(pwm1, 220);
+      analogWrite(pwm1, 100);
       analogWrite(pwm2, 0);
-
-      analogWrite(pwm3, 255);
+      analogWrite(pwm3, 100);
       analogWrite(pwm4, 0);
+
+      analogWrite(pwm5, 40);
+      analogWrite(pwm6, 0);
+      analogWrite(pwm7, 40);
+      analogWrite(pwm8, 0);
+      delay(200);
+      //////////////////////
     } else if (cm3 >= 5) {
-      analogWrite(pwm1, 220);
+      analogWrite(pwm1, 40);
       analogWrite(pwm2, 0);
-
-      analogWrite(pwm3, 255);
+      analogWrite(pwm3, 40);
       analogWrite(pwm4, 0);
+
+      analogWrite(pwm5, 100);
+      analogWrite(pwm6, 0);
+      analogWrite(pwm7, 100);
+      analogWrite(pwm8, 0);
+      delay(200);
     }
   }
+}
+void left(int distance) {
+  analogWrite(pwm1, -100);
+  analogWrite(pwm2, 0);
+  analogWrite(pwm3, -100);
+  analogWrite(pwm4, 0);
+
+  analogWrite(pwm5, 100);
+  analogWrite(pwm6, 0);
+  analogWrite(pwm7, 100);
+  analogWrite(pwm8, 0);
+}
+void right(int distance) {
+  analogWrite(pwm1, 100);
+  analogWrite(pwm2, 0);
+  analogWrite(pwm3, 100);
+  analogWrite(pwm4, 0);
+
+  analogWrite(pwm5, -100);
+  analogWrite(pwm6, 0);
+  analogWrite(pwm7, -100);
+  analogWrite(pwm8, 0);
+}
+void backward (int distance){
+  analogWrite(pwm1, -100);
+  analogWrite(pwm2, 0);
+  analogWrite(pwm3, -100);
+  analogWrite(pwm4, 0);
+
+  analogWrite(pwm5, -100);
+  analogWrite(pwm6, 0);
+  analogWrite(pwm7, -100);
+  analogWrite(pwm8, 0);
 }
