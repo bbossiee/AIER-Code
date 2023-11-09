@@ -38,45 +38,24 @@ unsigned int uS2 = 0;
 unsigned int cm2 = 0;
 unsigned int uS3 = 0;
 unsigned int cm3 = 0;
-
+unsigned int uS4 = 0;
+unsigned int cm4 = 0;
 
 void setup() {
   Wire.begin();  // Initialize I2C communication
   Serial.begin(9600);
-  pinMode(pwm1, OUTPUT);
-  pinMode(pwm2, OUTPUT);
-  pinMode(pwm3, OUTPUT);
-  pinMode(pwm4, OUTPUT);
-
-  pinMode(AIN1, OUTPUT);
-  pinMode(AIN2, OUTPUT);
-  pinMode(BIN1, OUTPUT);
-  pinMode(BIN2, OUTPUT);
-  pinMode(STBY1, OUTPUT);
-
-  pinMode(AIN3, OUTPUT);
-  pinMode(AIN4, OUTPUT);
-  pinMode(BIN3, OUTPUT);
-  pinMode(BIN4, OUTPUT);
-  pinMode(STBY2, OUTPUT);
-
-  pinMode(pwm1, OUTPUT);
-  pinMode(pwm2, OUTPUT);
-  pinMode(pwm3, OUTPUT);
-  pinMode(pwm4, OUTPUT);
-  pinMode(pwm5, OUTPUT);
-  pinMode(pwm6, OUTPUT);
-  pinMode(pwm7, OUTPUT);
-  pinMode(pwm8, OUTPUT);
+  output();
 }
 
 void loop() {
   unsigned int uS1 = sonar.ping();           // Send a ping and get the echo time in microseconds
   unsigned int cm1 = sonar.convert_cm(uS1);  // Convert the echo time to centimeters
-  unsigned int uS2 = sonar.ping();           // Send a ping and get the echo time in microseconds
-  unsigned int cm2 = sonar.convert_cm(uS2);  // Convert the echo time to centimeters
-  unsigned int uS3 = sonar.ping();           // Send a ping and get the echo time in microseconds
-  unsigned int cm3 = sonar.convert_cm(uS3);  // Convert the echo time to centimeters
+  unsigned int uS2 = sonar.ping();
+  unsigned int cm2 = sonar.convert_cm(uS2);
+  unsigned int uS3 = sonar.ping();
+  unsigned int cm3 = sonar.convert_cm(uS3);
+  unsigned int uS4 = sonar.ping();
+  unsigned int cm4 = sonar.convert_cm(uS4);
   Serial.print("Distance1: ");
   Serial.print(cm1);
   Serial.println(" cm1");
@@ -89,9 +68,14 @@ void loop() {
   Serial.print(cm3);
   Serial.println(" cm3");
   delay(100);
+  Serial.print("Distance4: ");
+  Serial.print(cm3);
+  Serial.println(" cm4");
+  delay(100);
 }
-void forward(int distance) {
-  while (1) {
+void forward(int period = 0) {
+  int time = millis();
+  while (millis() - time <= period) {
     long duration, cm;
     analogWrite(pwm1, 100);
     analogWrite(pwm2, 0);
@@ -140,36 +124,68 @@ void forward(int distance) {
     }
   }
 }
-void left(int distance) {
-  analogWrite(pwm1, -100);
-  analogWrite(pwm2, 0);
-  analogWrite(pwm3, -100);
-  analogWrite(pwm4, 0);
+void left(int period = 0) {
+  int time = millis();
+  while (millis() - time <= period) {
+    analogWrite(pwm1, -100);
+    analogWrite(pwm2, 0);
+    analogWrite(pwm3, -100);
+    analogWrite(pwm4, 0);
 
-  analogWrite(pwm5, 100);
-  analogWrite(pwm6, 0);
-  analogWrite(pwm7, 100);
-  analogWrite(pwm8, 0);
+    analogWrite(pwm5, 100);
+    analogWrite(pwm6, 0);
+    analogWrite(pwm7, 100);
+    analogWrite(pwm8, 0);
+  }
 }
-void right(int distance) {
-  analogWrite(pwm1, 100);
-  analogWrite(pwm2, 0);
-  analogWrite(pwm3, 100);
-  analogWrite(pwm4, 0);
+void right(int period = 0) {
+  int time = millis();
+  while (millis() - time <= period) {
+    analogWrite(pwm1, 100);
+    analogWrite(pwm2, 0);
+    analogWrite(pwm3, 100);
+    analogWrite(pwm4, 0);
 
-  analogWrite(pwm5, -100);
-  analogWrite(pwm6, 0);
-  analogWrite(pwm7, -100);
-  analogWrite(pwm8, 0);
+    analogWrite(pwm5, -100);
+    analogWrite(pwm6, 0);
+    analogWrite(pwm7, -100);
+    analogWrite(pwm8, 0);
+  }
 }
-void backward (int distance){
-  analogWrite(pwm1, -100);
-  analogWrite(pwm2, 0);
-  analogWrite(pwm3, -100);
-  analogWrite(pwm4, 0);
+void backward(int period = 0) {
+  int time = millis();
+  while (millis() - time <= period) {
+    long duration, cm;
+    if (cm4 >= 4) {
+      analogWrite(pwm1, -100);
+      analogWrite(pwm2, 0);
+      analogWrite(pwm3, -100);
+      analogWrite(pwm4, 0);
 
-  analogWrite(pwm5, -100);
-  analogWrite(pwm6, 0);
-  analogWrite(pwm7, -100);
-  analogWrite(pwm8, 0);
+      analogWrite(pwm5, -100);
+      analogWrite(pwm6, 0);
+      analogWrite(pwm7, -100);
+      analogWrite(pwm8, 0);
+    }
+  }
+}
+void output() {
+  pinMode(AIN1, OUTPUT);
+  pinMode(AIN2, OUTPUT);
+  pinMode(BIN1, OUTPUT);
+  pinMode(BIN2, OUTPUT);
+  pinMode(STBY1, OUTPUT);
+  pinMode(AIN3, OUTPUT);
+  pinMode(AIN4, OUTPUT);
+  pinMode(BIN3, OUTPUT);
+  pinMode(BIN4, OUTPUT);
+  pinMode(STBY2, OUTPUT);
+  pinMode(pwm1, OUTPUT);
+  pinMode(pwm2, OUTPUT);
+  pinMode(pwm3, OUTPUT);
+  pinMode(pwm4, OUTPUT);
+  pinMode(pwm5, OUTPUT);
+  pinMode(pwm6, OUTPUT);
+  pinMode(pwm7, OUTPUT);
+  pinMode(pwm8, OUTPUT);
 }
