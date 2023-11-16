@@ -1,2 +1,10 @@
 # AIER Competition 2023
-## Code for Our robot (PP Model 1)
+## Component 
+1. 3D Print body
+2. qtr-1rc
+3. Ultrasonic
+4. Arduino MEGA 2560 PRO
+5. TB6612FNG
+6. Lipo Battery 7.4 v 900 mAh
+7. Step Down
+8. GA12-N20 (1K rpm)
