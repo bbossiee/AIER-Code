@@ -33,9 +33,10 @@ void setup() {
   Serial.begin(9600);
   pinMode(echo, INPUT);   //สั่งให้ขา echo ใช้งานเป็น input
   pinMode(trig, OUTPUT);  //สั่งให้ขา trig ใช้งานเป็น output
-
+  pinMode(STBY, OUTPUT);
 
   //เขียนที่นี้
+
   motor1.drive(-255, 1000);
   motor2.drive(-255, 1000);
   brake(motor1, motor2);
