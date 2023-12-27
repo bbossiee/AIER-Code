@@ -1,5 +1,5 @@
 # AIRE Competition 2023
-## 3 rd Place of AIRE A.I. Car competition
+## Bronze Award Place of AIRE A.I. Car competition
 ### Hardware
 1. 3D Print body
 2. QTR-1RC
