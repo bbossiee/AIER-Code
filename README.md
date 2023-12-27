@@ -1,8 +1,8 @@
 # AIRE Competition 2023
 ## 3 rd Place of AIRE A.I. Car competition
-### Component 
+### Hardware
 1. 3D Print body
-2. qtr-1rc
+2. QTR-1RC
 3. Ultrasonic
 4. Arduino MEGA 2560 PRO
 5. TB6612FNG
