@@ -1,6 +1,6 @@
 # AIRE Competition 2023
 ## Bronze Award Place of AIRE compettition (A.I. Car) 
-### Sensor
+### Sensors
 1. 3D Print body
 2. QTR-1RC
 3. Ultrasonic
